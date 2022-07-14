@@ -1,0 +1,98 @@
+#include <cs50.h>
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main(int argc, string argv[])
+{
+string key = argv[1];
+
+    if (argc == 1)
+    {
+        printf("Usage: ./subsstitution key\n");
+        return 1;
+    }
+
+    for (int i = 0; i < strlen(key); i++)
+    {
+        for (int j = i + 1; j < strlen(key); j++)
+        {
+            if (toupper(key[i]) == toupper(key[j]))
+            {
+                printf("Usage: ./subsstitution key\n");
+                return 1;
+            }
+        }
+
+    }
+
+
+
+    //Checks wether user has inputed only one argument.
+    if (argc != 2)
+    {
+        printf("Usage: ./substitution key\n");
+        return 1;
+    }
+    else printf("Valid\n");
+    //checks wether user inputed appropriate key size (26) and if input includes digits.
+    for (int i = 0; i < strlen(argv[1]); i++)
+    {
+    if (isdigit(argv[1][i]))
+        {
+            printf("Key must contain 26 alphabetical characters.\n");
+            return 1;
+        }
+    else if (strlen(argv[1]) != 26)
+        {
+            printf("Key must contain 26 alphabetical characters.\n");
+            return 1;
+        }
+    }
+
+    printf("Success\n");
+
+    string plain_text = get_string("Enter text to be ciphered: \n");
+
+    string cypher = plain_text;
+
+    printf("ciphertext: ");
+
+    for (int i = 0; i < strlen(plain_text); i++)
+    {
+        if (isupper(plain_text[i]))
+        {
+            int pos = plain_text[i] - 65;
+            if (isupper(key[pos]))
+            {
+                printf("%c", key[pos]);
+            }
+            else printf("%c", key[pos] - 32);
+
+        }
+
+        else if (islower(plain_text[i]))
+        {
+            int pos = plain_text[i] - 97;
+            if (islower(key[pos]))
+            {
+                printf("%c", key[pos]);
+            }
+            else printf("%c", key[pos] + 32);
+
+        }
+        else
+        {
+            printf("%c", plain_text[i]);
+        }
+
+
+    }
+    printf("\n");
+
+
+
+
+return 0;
+}
